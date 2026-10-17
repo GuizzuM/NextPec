@@ -1,0 +1,85 @@
+<%- include('../parts/header') %>
+
+<div id="overlay"></div>
+
+<div class="main-wrapper">
+   
+    <main class="content">
+
+        <%# Mensagens flash — vem do res.locals do app.js %>
+        <% if (req_message && req_message.length > 0) { %>
+            <div class="alert alert-<%= req_status %>">
+                <%= req_message %>
+            </div>
+        <% } %>
+
+        <div class="table-header">
+            <h2>Lista de Animais</h2>
+            <%# Agora vai para uma página separada! %>
+            <a href="/animais/novo" class="btn-novo">+ Novo Animal</a>
+        </div>
+
+        <div class="card-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>SISBOV</th>
+                        <th>Raça</th>
+                        <th>Faixa Etária</th>
+                        <th>Fazenda</th>
+                        <th>Peso (kg)</th>
+                        <th>Data Entrega</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (animais.length === 0) { %>
+                        <tr>
+                            <td colspan="8" class="td-vazio">
+                                Nenhum animal cadastrado ainda.
+                            </td>
+                        </tr>
+                    <% } %>
+
+                    <% animais.forEach(animal => { %>
+                        <tr>
+                            <td>#<%= animal.id %></td>
+                            <td><%= animal.sisbov %></td>
+                            <td><%= animal.raca %></td>
+                            <td><%= animal.faixa_etaria %></td>
+                            <td><%= animal.fazenda %></td>
+                            <td><%= animal.peso_atual ?? '—' %></td>
+                            <td>
+                                <%= new Date(animal.dataEntrega)
+                                    .toLocaleDateString('pt-BR') %>
+                            </td>
+                            <td class="td-acoes">
+
+                                <%# Botão Editar %>
+                                <a href="/animais/editar/<%= animal.id %>"
+                                   class="btn-action btn-edit">
+                                   ✏️ Editar
+                                </a>
+
+                                <%# Botão Excluir %>
+                                <form action="/animais/excluir/<%= animal.id %>"
+                                      method="POST"
+                                      style="display:inline"
+                                      onsubmit="return confirm('Confirma exclusão do animal #<%= animal.id %>?')">
+                                    <button type="submit"
+                                            class="btn-action btn-delete">
+                                        🗑️ Excluir
+                                    </button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<%- include('../parts/footer') %>

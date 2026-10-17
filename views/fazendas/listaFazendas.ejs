@@ -1,0 +1,71 @@
+<%- include('../parts/header') %>
+
+<div class="main-wrapper">
+    
+
+    <main class="content">
+
+        <%# Mensagens flash %>
+        <% if (req_message && req_message.length > 0) { %>
+            <div class="alert alert-<%= req_status %>">
+                <%= req_message %>
+            </div>
+        <% } %>
+
+        <div class="table-header">
+            <h2>Lista de Fazendas</h2>
+            <a href="/fazendas/novo" class="btn-novo">+ Nova Fazenda</a>
+        </div>
+
+        <div class="card-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome da Fazenda</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <% if (fazendas.length === 0) { %>
+                        <tr>
+                            <td colspan="3" class="td-vazio">
+                                Nenhuma fazenda cadastrada ainda.
+                            </td>
+                        </tr>
+                    <% } %>
+
+                    <% fazendas.forEach(fazenda => { %>
+                        <tr>
+                            <td>#<%= fazenda.id %></td>
+                            <td><%= fazenda.fazenda %></td>
+                            <td class="td-acoes">
+
+                                <a href="/fazendas/editar/<%= fazenda.id %>"
+                                   class="btn-action btn-edit">
+                                   ✏️ Editar
+                                </a>
+
+                                <form action="/fazendas/excluir/<%= fazenda.id %>"
+                                      method="POST"
+                                      style="display:inline"
+                                      onsubmit="return confirm('Confirma exclusão da fazenda <%= fazenda.fazenda %>? Os animais associados não serão deletados.')">
+                                    <button type="submit"
+                                            class="btn-action btn-delete">
+                                        🗑️ Excluir
+                                    </button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    <% }) %>
+
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+</div>
+
+<%- include('../parts/footer') %>

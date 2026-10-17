@@ -1,0 +1,87 @@
+<%- include('../parts/header') %>
+
+<div class="main-wrapper">
+
+    <main class="content">
+
+        <%# Mensagens flash %>
+        <% if (req_message && req_message.length > 0) { %>
+            <div class="alert alert-<%= req_status %>">
+                <%= req_message %>
+            </div>
+        <% } %>
+
+        <div class="table-header">
+            <h2>Novo Animal</h2>
+            <a href="/animais/listaAnimais" class="btn-novo">← Voltar</a>
+        </div>
+
+        <div class="card-form">
+            <form action="/animais/cadastrarAnimais" method="POST">
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>SISBOV *</label>
+                        <input type="text" name="sisbov" 
+                               placeholder="Ex: 123456789" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Raça *</label>
+                        <input type="text" name="raca" 
+                               placeholder="Ex: Nelore" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Faixa Etária</label>
+                        <select name="faixa_etaria">
+                            <option value="">Selecione...</option>
+                            <option value="Bezerro">Bezerro</option>
+                            <option value="Garrote">Garrote</option>
+                            <option value="Novilho">Novilho</option>
+                            <option value="Adulto">Adulto</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fazenda *</label>
+                        <select name="id_fazenda" required>
+                            <option value="">Selecione...</option>
+                            <% fazendas.forEach(f => { %>
+                                <option value="<%= f.id %>">
+                                    <%= f.fazenda %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Peso Atual (kg)</label>
+                        <input type="number" name="peso_atual" 
+                               step="0.01" placeholder="Ex: 450.50">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Data de Entrega *</label>
+                        <input type="date" name="dataEntrega" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hora de Entrega</label>
+                        <input type="time" name="horaEntrega">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <button type="submit" class="btn-salvar">
+                            💾 Cadastrar Animal
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </main>
+</div>
+
+<%- include('../parts/footer') %>

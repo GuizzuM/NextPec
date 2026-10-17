@@ -1,0 +1,33 @@
+<!-- views/parts/header.ejs -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Fazenda | Gestão Inteligente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="/js/functions.js" defer></script>
+</head>
+
+<body>
+
+    <div id="overlay"></div>
+
+    <aside class="sidebar" id="mySidebar">
+        <h2>FAZENDA</h2>
+        <nav>
+            <a class="menu-btn" href="/">🏠 Início</a>
+            <a class="menu-btn" href="/animais/listaAnimais">🐄 Meus Animais</a>
+            <a class="menu-btn" href="/fazendas/listaFazendas">🚜 Minhas Fazendas</a>
+            <a class="menu-btn menu-sair" href="https://www.google.com/?zx=1772763569213&no_sw_cr=1">🚪 Sair</a>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header>
+            <button id="btn-menu-toggle" onclick="toggleMenu()">☰</button>
+            <h1 class="titulo-painel">Painel de Controle</h1>
+        </header>
